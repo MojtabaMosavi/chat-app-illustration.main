@@ -1,0 +1,69 @@
+/*---------------------------------------*\
+    #mixins
+\*---------------------------------------*/
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: var(--primary-font-rubik);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+// remove the default style
+
+a,
+a:visited,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+
+// reset the default on focus state but not when tabbed
+
+a,
+button {
+  cursor: pointer;
+
+  &:focus {
+    outline: max(1, 0.1em) solid;
+    outline-offset: -0.25em;
+  }
+
+  &:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: max(1, 0.1em) solid;
+    outline-offset: -0.25em;
+  }
+}
+
+/*|| Remove all animations and transitions
+for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
