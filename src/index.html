@@ -3,32 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="./scss/main.scss">
+  <script src="js/main.js" defer></script>
+  <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <title>Chat-app-css-illustration</title>
-
 </head>
 <body>
 
   <main class="main">
-    <div class="main-wrapper">
+    <div class="main-wrapper container">
       <section class="feature">
 
-        <div class="mobile">
+        <div class="mobile feature__mobile" aria-hidden="true">
           <div class="mobile__body">
             <div class="mobile__top-camera"></div>
-            <div class="mobile__screen">
+            <div class="mobile__screen" >
 
               <div class="mobile__profile-wrapper">
                 <div class="mobile__profile">
-                  <div class="mobile__profile-arrow"></div>
-                  <div class="mobile__profile-image"></div>
+                  <div class="mobile__profile-arrow" ></div>
+                  <div class="mobile__profile-image" aria-label="profile image"></div>
                   <div class="mobile__profile-user">
                     <span class="mobile__profile-name">  Samuel Green</span>
                     <span class="mobile__profile-status">  Available to Walk</span>
                   </div>
-                  <div class="mobile__profile-setting">
+                  <div class="mobile__profile-setting" 
                     <span class="mobile__profile-dot"></span>
                   </div>
                 </div>
@@ -36,33 +36,71 @@
 
               <div class="mobile__chat-section">
 
-                <p class="mobile__chat ">That sounds great. I’d be happy to discuss more.</p>
-                <p class="mobile__chat ">Could you send over some pictures of your dog, please?</p>
-                <div class="mobile__chat--image  mobile__chat--right">
-                  <img class="mobile__chat-image" src="./assets/images/dog-image-1.jpg" alt="image of dog">
-                  <img class="mobile__chat-image" src="./assets/images/dog-image-2.jpg" alt="image of dog">
-                  <img class="mobile__chat-image" src="./assets/images/dog-image-3.jpg" alt="image of dog">
+                <div class="mobile__chat-wrapper">
+                  <p class="mobile__chat mobile__message ">That sounds great. I’d be happy to discuss more.</p>
+                  <div class="loader loader--left"></div>
                 </div>
 
-                <p class="mobile__reply ">
-                  Here are a few pictures. She’s a happy girl!</p>
-                <p class="mobile__reply mobile__reply--xs mobile__chat--right ">Can you make it?</p>
-                <p class="mobile__chat mobile__chat--margin-top">
-                  She looks so happy! The time we discussed works. How long shall I take her out for?</p>
+                <div class="mobile__chat-wrapper">
+                  <p class="mobile__chat mobile__message">Could you send over some pictures of your dog, please?</p>
+                  <div class=" loader loader--left"></div>
+                </div>
+               
 
-                  <div class="mobile__pricing">
+                <div class="mobile__chat-wrapper">
+                  <div class="mobile__chat mobile__message--image  mobile__message--right">
+                    <img class="mobile__message-image" src="./assets/images/dog-image-1.jpg" alt="image of dog">
+                    <img class="mobile__message-image" src="./assets/images/dog-image-2.jpg" alt="image of dog">
+                    <img class="mobile__message-image" src="./assets/images/dog-image-3.jpg" alt="image of dog">
+                  </div>
+                  <div class="loader loader--right"></div>
+                </div>
+
+                <div class="mobile__chat-wrapper">
+                  <p class="mobile__chat mobile__reply mobile__message--right">Here are a few pictures. She’s a happy girl!</p>
+                  <div class="loader loader--right"></div>
+                </div>
+
+                <div class="mobile__chat-wrapper">
+                  <p class="mobile__chat mobile__reply mobile__reply--xs mobile__message--right ">Can you make it?</p>
+                  <div class="loader loader--right"></div>
+                </div>
+
+                <div class="mobile__chat-wrapper">
+                  <p class="mobile__chat mobile__message mobile__message--margin-top">
+                    She looks so happy! The time we discussed works. How long shall I take her out for?</p>
+                  <div class="loader loader--left"></div>
+                </div>
+
+
+                <div class="mobile__chat-wrapper">
+                  <div class="mobile__chat mobile__pricing">
                     <span class="mobile__pricing-circle"></span>
                     <span class="mobile__pricing-duration">30 minute walk</span>
                     <span class="mobile__pricing-price"> $29</span>
                   </div>
+                  <div class="loader loader--left"></div>
+                </div>
 
-                  <div class="mobile__pricing">
+                <div class="mobile__chat-wrapper">
+                  <div class="mobile__chat mobile__pricing">
                     <span class="mobile__pricing-circle"></span>
                     <span class="mobile__pricing-duration">  1 hour walk</span>
                     <span class="mobile__pricing-price">   $49</span>
                   </div>
+                  <div class="loader loader--left"></div>
+                </div>
 
-              </div>
+
+
+                  <div class="mobile__input" aria-hidden="true">
+                    Type a message…
+                    <span class="mobile__input-btn">
+                    </span>
+                  </div>
+              </div><!-- End of chat section-->
+
+
             </div>
 
 
@@ -101,7 +139,6 @@
 
 
 
-  Type a message…
 
 
 

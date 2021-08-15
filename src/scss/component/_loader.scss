@@ -1,0 +1,61 @@
+@use "../abstracts" as abs;
+/*---------------------------------------*\
+    #loader 
+\*---------------------------------------*/
+
+/*|| loader animation */
+@keyframes dot-flashing {
+  0% {
+    background-color: white;
+  }
+  50%,
+  100% {
+    background-color: gray;
+  }
+}
+
+/*|| loader */
+
+.loader {
+  position: absolute;
+  top: 50%;
+  width: abs.rem(7px);
+  height: abs.rem(7px);
+  transform: translateY(-50%);
+  border-radius: 50%;
+  z-index: 2;
+
+  &--left {
+    left: 10%;
+  }
+
+  &--right {
+    right: 10%;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: abs.rem(7px);
+    height: abs.rem(7px);
+    border-radius: 50%;
+  }
+
+  // active state
+
+  &--active {
+    animation: dot-flashing 1s linear infinite 0.5s alternate;
+
+    &::before {
+      left: abs.rem(-10px);
+      animation: dot-flashing 1s infinite 0s alternate;
+    }
+
+    &::after {
+      left: abs.rem(10px);
+      animation: dot-flashing 1s infinite 1s alternate;
+    }
+  }
+}

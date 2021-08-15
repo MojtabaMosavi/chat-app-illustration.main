@@ -1,0 +1,32 @@
+@keyframes fadeInLeft {
+  from {
+    transform: translateX(-2000px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translate(0, -500px);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    transform: translateX(2000px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes dots {
+  to {
+    width: 1.24em;
+  }
+}

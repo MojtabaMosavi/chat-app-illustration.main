@@ -3,6 +3,35 @@
 \*---------------------------------------*/
 /*||  font */
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+@keyframes fadeInLeft {
+  from {
+    transform: translateX(-2000px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes fadeInUp {
+  from {
+    transform: translate(0, -500px);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+@keyframes fadeInRight {
+  from {
+    transform: translateX(2000px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes dots {
+  to {
+    width: 1.24em;
+  }
+}
 :root {
   --primary-font-rubik: sans-serif;
 }
@@ -31,6 +60,16 @@
 /*---------------------------------------*\
     #functions
 \*---------------------------------------*/
+.container {
+  max-width: 23rem;
+  margin: 0 auto;
+}
+@media screen and (min-width: 43em) {
+  .container {
+    max-width: 56rem;
+  }
+}
+
 /*---------------------------------------*\
     #mixins
 \*---------------------------------------*/
@@ -49,6 +88,7 @@ html {
 body {
   min-height: 100vh;
   overflow-x: hidden;
+  background-color: var(--app-background);
 }
 
 ul[role=list],
@@ -105,6 +145,10 @@ body {
   font-family: var(--primary-font-rubik);
 }
 
+.mobile {
+  animation: backInLeft;
+  animation-duration: 2s;
+}
 .mobile__body {
   height: 31.5rem;
   margin: 0 auto;
@@ -122,6 +166,8 @@ body {
   position: relative;
   top: 0.6875rem;
   overflow: hidden;
+  animation: backInDown;
+  animation-duration: 4s;
 }
 .mobile__top-camera {
   position: absolute;
@@ -140,6 +186,7 @@ body {
   border-radius: 20px 20px 5px 5px;
   background: linear-gradient(to right, var(--linear-gradient-to), var(--linear-gradient-from));
   position: relative;
+  animation: fadeInUp 2s ease-in-out;
 }
 .mobile__profile {
   position: absolute;
@@ -186,6 +233,7 @@ body {
 .mobile__profile-status {
   font-size: 0.5rem;
   word-spacing: 0.1rem;
+  color: var(--sub-heading-top);
 }
 .mobile__profile-setting {
   width: 100%;
@@ -224,8 +272,23 @@ body {
   width: 100%;
   height: 87%;
   background-color: var(--app-background);
+  animation: fadeInRight 2s ease-in-out;
+  z-index: 2;
+}
+.mobile__chat-wrapper {
+  position: relative;
 }
 .mobile__chat {
+  visibility: visible;
+  transform: scale(0);
+}
+.mobile__chat--active {
+  visibility: visible;
+  transform: scale(1);
+  animation: backInUp;
+  animation-duration: 2s;
+}
+.mobile__message {
   max-width: 8.0625rem;
   font-size: 0.51875rem;
   padding: 0.4rem 0.6rem;
@@ -234,16 +297,17 @@ body {
   line-height: 0.67rem;
   border-radius: 0.6rem;
   background-color: var(--placeholder-text);
+  color: var(--chat-left);
 }
-.mobile__chat--right {
+.mobile__message--right {
   margin-left: 5.3125rem;
 }
-.mobile__chat-image {
+.mobile__message-image {
   width: 40px;
   height: 40px;
   border-radius: 0.6rem;
 }
-.mobile__chat--image {
+.mobile__message--image {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -251,7 +315,7 @@ body {
   margin-top: 1rem;
   max-width: 136px;
 }
-.mobile__chat--margin-top {
+.mobile__message--margin-top {
   margin-top: 0.9375rem;
 }
 .mobile__reply {
@@ -263,6 +327,7 @@ body {
   border-radius: 0.3rem;
   margin-left: 93px;
   line-height: 0.7rem;
+  color: var(--chat-right);
 }
 .mobile__reply--xs {
   width: 81px;
@@ -291,18 +356,106 @@ body {
   font-size: 12px;
   font-weight: 800;
 }
+.mobile__input {
+  background: var(--white);
+  width: 212px;
+  margin-top: 17px;
+  padding: 12px 18px;
+  border-radius: 22px;
+  margin-left: 8px;
+  font-size: 9px;
+  color: var(--placeholder-text);
+  position: relative;
+}
+.mobile__input-btn {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: 2%;
+  bottom: 19%;
+  background-color: var(--submit-button-background);
+  border-radius: 24px;
+  border: 1px solid var(--radio-button-outline);
+}
+.mobile__input-btn::before, .mobile__input-btn::after {
+  content: "";
+  width: 7px;
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  background-color: var(--white);
+  left: 50%;
+  transform: translate(-17%, -106%) rotate(48deg);
+}
+.mobile__input-btn::after {
+  transform: translate(-20%, 47%) rotate(132deg);
+}
+
+/*---------------------------------------*\
+    #loader 
+\*---------------------------------------*/
+/*|| loader animation */
+@keyframes dot-flashing {
+  0% {
+    background-color: white;
+  }
+  50%, 100% {
+    background-color: gray;
+  }
+}
+/*|| loader */
+.loader {
+  position: absolute;
+  top: 50%;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  z-index: 2;
+}
+.loader--left {
+  left: 10%;
+}
+.loader--right {
+  right: 10%;
+}
+.loader::before, .loader::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+}
+.loader--active {
+  animation: dot-flashing 1s linear infinite 0.5s alternate;
+}
+.loader--active::before {
+  left: -0.625rem;
+  animation: dot-flashing 1s infinite 0s alternate;
+}
+.loader--active::after {
+  left: 0.625rem;
+  animation: dot-flashing 1s infinite 1s alternate;
+}
 
 /*---------------------------------------*\
     #min
 \*---------------------------------------*/
 .main {
+  max-width: 90rem;
+  margin: 0 auto;
   min-height: 100vh;
   position: relative;
-  background-color: var(--app-background);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  overflow: hidden;
+  /*---------------------------------------*\
+    #desktop
+  \*---------------------------------------*/
 }
 .main::before {
   content: "";
@@ -317,18 +470,90 @@ body {
 .main::after {
   content: "";
   position: absolute;
-  right: 0;
+  right: -126px;
   bottom: 0;
-  width: 117px;
+  width: 311px;
   height: 101px;
-  border-radius: 15.4375rem 0.6rem 0 0;
-  height: 12.5rem;
-  background-color: red;
+  border-radius: 132rem 32rem 0rem 0;
+  height: 31.5rem;
+  background-color: #efefef;
+  z-index: 0;
 }
 .main-wrapper {
   position: relative;
   z-index: 2;
   padding-top: 4rem;
+}
+@media screen and (min-width: 62em) {
+  .main::before {
+    width: 37.125rem;
+    height: 43.8125rem;
+    border-radius: 0 0 57% 82%;
+  }
+  .main-wrapper {
+    padding-top: 0;
+  }
+}
+
+/*---------------------------------------*\
+    #feature
+\*---------------------------------------*/
+.feature {
+  /*---------------------------------------*\
+    #feature tablet
+  \*---------------------------------------*/
+  /*---------------------------------------*\
+    #feature tablet
+  \*---------------------------------------*/
+  /*---------------------------------------*\
+    #feature laptop
+  \*---------------------------------------*/
+}
+.feature__content {
+  animation: backInRight;
+  animation-duration: 2s;
+  margin-top: 4rem;
+  text-align: center;
+}
+.feature__heading {
+  font-size: 40px;
+  margin-bottom: 30px;
+  color: var(--main-heading);
+}
+.feature__text {
+  padding: 0 27px;
+  font-size: 17px;
+  line-height: 27px;
+  margin-bottom: 4rem;
+  color: var(--paragraph);
+}
+@media screen and (min-width: 43em) {
+  .feature {
+    display: flex;
+    align-items: center;
+  }
+  .feature__mobile {
+    margin-bottom: 3rem;
+    margin-left: 91px;
+  }
+}
+@media screen and (min-width: 43em) {
+  .feature {
+    display: flex;
+    align-items: center;
+  }
+  .feature__content {
+    margin-top: 1rem;
+  }
+}
+@media screen and (min-width: 62em) {
+  .feature__text {
+    padding: 0 82px 0 21px;
+    position: relative;
+    line-height: 27px;
+    left: 103px;
+    text-align: left;
+  }
 }
 
 /*# sourceMappingURL=/main.77bb5cfd.css.map */

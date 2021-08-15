@@ -117,79 +117,89 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"js/mobile.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Mobile = /*#__PURE__*/function () {
+  function Mobile() {
+    _classCallCheck(this, Mobile);
+
+    // dom caching 
+    this.mobile = document.querySelector(".mobile");
+    this.chatItems = this.mobile.querySelectorAll(".mobile__chat");
+    this.chatLoader = this.mobile.querySelectorAll(".loader");
+    this.activatingTime = 5000;
+    this.loaderDeactivitinTime = 5000;
+    this.loaderActivitinTime = 6000;
+    this.palseBetweenChanges = 4000; // initializing 
+
+    this.render();
   }
 
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
+  _createClass(Mobile, [{
+    key: "render",
+    value: // render
+    function render() {
+      this.animateMessages();
     }
-  }
+  }, {
+    key: "animateMessages",
+    value: function animateMessages() {
+      var _this = this;
 
-  return '/';
-}
+      // pulse messages being animated until initial animation on the mobile end
+      setTimeout(function () {
+        // iterate over the loaders 
+        _this.chatLoader.forEach(function (element, i) {
+          // increase the loading time as more elements added 
+          setTimeout(function () {
+            setTimeout(function () {
+              element.classList.add("loader--active"); // display the message efter a few seconds 
 
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
+              setTimeout(function () {
+                element.classList.remove("loader--active");
 
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
+                _this.chatItems[i].classList.add("mobile__chat--active");
+              }, _this.loaderDeactivitinTime);
+            }, _this.loaderActivitinTime * i);
+          }, _this.palseBetweenChanges * (i / 5));
+        });
+      }, this.activatingTime);
     }
+  }]);
 
-    cssTimeout = null;
-  }, 50);
-}
+  return Mobile;
+}();
 
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"scss/main.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+exports.default = Mobile;
+},{}],"js/main.js":[function(require,module,exports) {
+"use strict";
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./../assets/images/avatar.jpg":[["avatar.921a4fa9.jpg","assets/images/avatar.jpg"],"assets/images/avatar.jpg"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var _mobile = _interopRequireDefault(require("./mobile"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** 
+ * Creting a name space to avoid naming confilict 
+*/
+var app = function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    // initializing objects 
+    var MobileApp = new _mobile.default();
+  });
+}();
+},{"./mobile":"js/mobile.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -393,5 +403,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/main.77bb5cfd.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/main.js"], null)
+//# sourceMappingURL=/main.fb6bbcaf.js.map

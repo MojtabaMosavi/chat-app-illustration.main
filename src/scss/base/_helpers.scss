@@ -1,0 +1,10 @@
+@use "../abstracts" as abs;
+
+.container {
+  max-width: 23rem;
+  margin: 0 auto;
+
+  @include abs.respond-to("tablet") {
+    max-width: 56rem;
+  }
+}
